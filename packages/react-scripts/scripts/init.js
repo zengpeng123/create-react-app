@@ -25,7 +25,7 @@ const verifyTypeScriptSetup = require('./utils/verifyTypeScriptSetup');
 
 function isInGitRepository() {
   try {
-    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' });
+    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' }); // ===> 返回true、false
     return true;
   } catch (e) {
     return false;
@@ -34,7 +34,7 @@ function isInGitRepository() {
 
 function isInMercurialRepository() {
   try {
-    execSync('hg --cwd . root', { stdio: 'ignore' });
+    execSync('hg --cwd . root', { stdio: 'ignore' }); // ===> Mercurial仓库下判断是否初始化
     return true;
   } catch (e) {
     return false;
@@ -59,9 +59,7 @@ function tryGitInit() {
 function tryGitCommit(appPath) {
   try {
     execSync('git add -A', { stdio: 'ignore' });
-    execSync('git commit -m "Initialize project using Create React App"', {
-      stdio: 'ignore',
-    });
+    execSync('git commit -m "Initialize project using Create React App"', { stdio: 'ignore' });
     return true;
   } catch (e) {
     // We couldn't commit in already initialized git repo,
@@ -218,7 +216,7 @@ module.exports = function (
 
   fs.writeFileSync(
     path.join(appPath, 'package.json'),
-    JSON.stringify(appPackage, null, 2) + os.EOL
+    JSON.stringify(appPackage, null, 2) + os.EOL // ==> os.EOL：系统的换行符
   );
 
   const readmeExists = fs.existsSync(path.join(appPath, 'README.md'));
@@ -232,7 +230,7 @@ module.exports = function (
   // Copy the files for the user
   const templateDir = path.join(templatePath, 'template');
   if (fs.existsSync(templateDir)) {
-    fs.copySync(templateDir, appPath);
+    fs.copySync(templateDir, appPath); // ==> copy文件到目标目录
   } else {
     console.error(
       `Could not locate supplied template: ${chalk.green(templateDir)}`
